@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="" data-ng-app="GoogleDirection">
+<body background="D:\BootStrap\bootstrap-3.3.6-dist\images\img5.jpg">
+<head>
+  <meta t="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check you Route and Weather</title>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+  <link rel="stylesheet" href="css/main.css">  
+    
+    <style>
+     #map-canvas {
+    width: 650px;
+    height: 450px;
+}
+    </style>
+    ;
+<style>.weather1{
+    background: rgba(255,255,255,0.5);
+    font-size: 1.5rem;
+    left: 64%;
+    position: absolute;
+    background-size: auto;
+    padding: 1em;
+    bottom: 5%;
+}
+.weather2{
+    background: rgba(255,255,255,0.5);
+    left: 84%;
+    font-size: 1.5rem;
+    position: absolute;
+    background-size: auto;
+    padding: 1em;
+    bottom: 5%;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapp" ng-controller="googlemapoutput">
+         <div class="row">
+                <input type="text"  ng-model="startlocation" id="startlocation"/>
+                <input type="text"  ng-model="endlocation" id="endlocation" />
+             <button id="btn" ng-click="calcRoute()">
+                 Get Direction
+             </button>
+             <div ng-app="weather" ng-controller="weatherctrl">
+                 <button id="btn" ng-click="getWeather()"> Show Weather </button>
+                 <br/>
+                 <br/>
+                 <div class="weatherModule">
+                     <p class="currentConditions" ng-bind-html-unsafe="currentweather.html"></p>
+                     <div class="currentIcon" ng-bind-html-unsafe="currentIcon.html"></div>
+                 </div>
+             </div>
+
+             <br/></br>
+            </div>
+            <div id="map-canvas" style="height: 400px;"></div>
+        </div>
+    </div>
+
+</form>
+
+</div>
+<div class="weather1"><p class="cityname1">{{city}}</p>
+    <p>Temperature: {{tempid}}&#8451</p>
+    <p>Wind Speed: {{windspeed}}</p>
+    <p>Sky: {{desc}}  <img class="icon" ng-src="http://openweathermap.org/img/w/{{icon}}.png"></p>
+</div>
+
+<div class="weather2"><p class="cityname1">{{cityEnd}}</p>
+    <p>Temperature: {{tempidEnd}}&#8451</p>
+    <p>Wind Speed: {{windspeedEnd}}</p>
+    <p>Sky: {{descEnd}}  <img class="icon" ng-src="http://openweathermap.org/img/w/{{iconEnd}}.png"></p>
+</div>
+<img src="images/Map-icon.png" class="mapicon">
+    </body>
+</html>
+
+
+<script>
+angular.module('GoogleDirection', [])
+.controller('googlemapoutput', function ($scope) {
+
+    var map;
+    var mapOptions;
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+        draggable: true
+    });
+    var directionsService = new google.maps.DirectionsService();
+
+    $scope.initialize = function () {
+          var pos = new google.maps.LatLng(0, 0); 
+          var mapOptions = {
+                zoom: 3,
+                center: pos
+            };
+
+            map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+     };
+    $scope.calcRoute = function () {
+       var end = document.getElementById('endlocation').value;
+            var start = document.getElementById('startlocation').value;
+
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            directionsService.route(request, function (response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setMap(map);
+                    directionsDisplay.setDirections(response);
+                    console.log(status);
+                }
+           
+        });
+    };
+
+    google.maps.event.addDomListener(window, 'load', $scope.initialize);
+
+});
+
+
+
+</script>
+<script>
+    angular.module('weather', [])
+            .controller('weatherctrl', function($scope, $http) {
+
+                $scope.getWeather = function() {
+                    $http.get('https://api.wunderground.com/api/36b799dc821d5836/conditions/q/MO/Kansas%20City.json').success(function(data) {
+                        console.log(data);
+                        temp = data.current_observation.temp_f;
+                        icon = data.current_observation.icon_url;
+                        weather = data.current_observation.weather;
+                        console.log(temp);
+                        $scope.currentweather = {
+                            html: "Currently " + temp + " &deg; F and " + weather + ""
+                        }
+                        $scope.currentIcon = {
+                            html: "<img src='" + icon + "'/>"
+                        }
+
+                    })
+                }
+
+            });
+
+
+$scope.getWeatherStart = function() {
+var start = document.getElementById('startlocation').value;
+$http.get('http://api.openweathermap.org/data/2.5/weather?q='+start+'&appid=aecc1ada15291787e9f4ec95ab382165&units=metric').success(function(data) {
+console.log(data);
+$scope.city=data.name;
+$scope.desc = data.weather[0].main;
+$scope.tempid= data.main.temp;
+$scope.windspeed = data.wind.speed;
+$scope.icon=data.weather[0].icon;
+})
+};
+$scope.getWeatherEnd = function() {
+var end = document.getElementById('endlocation').value;
+$http.get('http://api.openweathermap.org/data/2.5/weather?q='+end+'&appid=aecc1ada15291787e9f4ec95ab382165&units=metric').success(function(data) {
+console.log(data);
+$scope.cityEnd=data.name;
+$scope.descEnd = data.weather[0].main;
+$scope.tempidEnd= data.main.temp;
+$scope.windspeedEnd = data.wind.speed;
+$scope.iconEnd=data.weather[0].icon;
+})
+};
+</script>
