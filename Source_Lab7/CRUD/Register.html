@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="" data-ng-app=y"mApp">
+<body background="D:\BootStrap\CRUD\images\img5.jpg">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>Sign up</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
+	<script src="js\app.js"></script>
+	<link rel="stylesheet" href="css/main.css">
+	<style type="text/css">
+        
+    </style>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div  ng-controller="RegisterController">
+<div class="navbar navbar-inverse">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="#">
+			<img src="D:\BootStrap\CRUD\images\logo.jpg"><b><i>  Travel with Ease!</i></b>
+		</a>
+	</div>
+	<div class="navbar-collapse collapse navbar-inverse-collapse">
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="#">Careers</a></li>
+			<li><a href="#">About Us</a></li>
+			<li><a href="Login.html">Login</a></li>
+		</ul>
+	</div>
+</div>
+<div class="container-fluid">
+    <section class="container">
+		<div class="container-page">				
+			<div class="col-md-6">
+				<h3 class="dark-grey">Registration</h3>
+				
+				<div class="form-group col-lg-8" style="float:left">
+					<label>Username</label>
+					<input type="text" name="userName" class="form-control" id="userName" value="" data-ng-model="userName">
+				</div>
+				
+				<div class="form-group col-lg-6" style="float:left">
+					<label>Password</label>
+					<input type="password" name="password" class="form-control" id="password" value="" data-ng-model="password">
+				</div>
+				
+				<div class="form-group col-lg-6">
+					<label>Repeat Password</label>
+					<input type="password" name="" class="form-control" id="" value="">
+				</div>
+								
+				<div class="form-group col-lg-6">
+					<label>Email Address</label>
+					<input type="text" name="email" class="form-control" id="email" value="" data-ng-model="email">
+				</div>
+				
+				<div class="form-group col-lg-6">
+					<label>Repeat Email Address</label>
+					<input type="" name="" class="form-control" id="" value="">
+				</div>			
+				
+				<div class="col-sm-6">
+					<input type="checkbox" class="checkbox" />Sigh up for our newsletter
+				</div>
+
+				<div class="col-sm-6">
+					<input type="checkbox" class="checkbox" />Send notifications to this email
+				</div>				
+			
+			</div>
+		
+			<div class="col-md-6">
+				<h3 class="dark-grey">Terms and Conditions</h3>
+				<p>
+					By clicking on "Register" you agree to The Company's' Terms and Conditions
+				</p>
+				<p>
+					You should be able to see maps by setting up Source and Destination location, Also you have avbility to see the weather details of both starting point and destination
+				</p>
+				<p>
+					Actual weather may change based on climatic conditions,Company is not responsible for any kind of deviations. Distance between cities may vary from routes to routes.
+				</p>
+				<p>
+					The company is registered under arunitCreative@2016.
+				</p>
+                <button id="register" name="register" ng_click="register(userName, password, email)">Register</button>
+				<button type="submit" class="btn btn-primary" ng_click="register(userName, password, email)">Register</button>
+			</div>
+            <p > {{msg}}</p>
+		</div>
+	</section>
+</div>
+</div>
+</body>
+<script type="text/javascript">
+
+</script>
+</script>
+<br><br><br><br><br><br><br><br><br><br><br>
+<footer>
+<p><h4>Copyright : arunitCreative @2016</h4></p>
+</footer>
+</html>
