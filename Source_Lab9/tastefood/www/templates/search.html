@@ -1,0 +1,31 @@
+<ion-view view-title="Search your food">
+  <ion-content>
+    <h1>what and where?</h1>
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Enter City</span>
+          <input type="text" ng-model="loginData.username">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Choose Dish</span>
+          <input type="password" >
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit" ng-click="getVenues();">Search</button>
+        </label>
+      </div>
+      <ul style="font-size: x-large">
+
+        <li ng-repeat="venue in venueList">
+          <a  href="" ng-click="getReviews(venue)">{{venue.name}}</a>
+        </li>
+      </ul>
+      <ul style="list-style-type:disc">
+  <li><a href="url">Biryani mirch masala</a></li>
+  <li><a href="url">Sapna Biryani</a></li>
+<li><a href="url">pehalwaan Biryani wale</a></li>
+ <li><a href="url">Noor Biryani</a></li>
+ <li><a href="url">Biryani Paradise</a></li>
+</ul>
+  </ion-content>
+</ion-view>
